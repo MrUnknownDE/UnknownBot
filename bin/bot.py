@@ -1,8 +1,10 @@
 import discord
 import asyncio
 
+
 client = discord.Client()
-ownerid = "155076323612688384"
+ownerid = ("155076323612688384")
+
 
 ##Uptime Variablen##
 minutes = 0
@@ -103,14 +105,33 @@ async def on_message(message):
 ## Player ##
 
     if message.content.lower().startswith("?play"):
-        link = message.content[6:]
         try:
-            channel = message.author.voice.voice_channel
-            voice = await client.join_voice_channel(channel)
-            player = await voice.create_ytdl_player(link)
-            players[message.server.id] = player
-            await client.send_message(message.channel, "__Wird jetzt ausgeführt__\n\n :arrow_forward: {0}".format(link))
-            player.start()
+            link = message.content[6:]
+            if not client.is_voice_connected(message.server):
+                try:
+                    channel = message.author.voice.voice_channel
+                    voice = await client.join_voice_channel(channel)
+                    player = await voice.create_ytdl_player(link, before_options=" -reconnect 1 -reconnect_streamed 1"
+                                                                                " -reconnect_delay_max 5")
+                    players[message.server.id] = player
+                    await client.send_message(message.channel, "__Wird jetzt ausgeführt__\n\n :arrow_forward: {0}".format(link))
+                    player.start()
+                except Exception as error2:
+                    await client.send_message(message.channel, "Error \n\n ```{erro}```".format(erro=error2))
+                finally:
+                    pass
+            if client.is_voice_connected(message.server):
+                try:
+                    voice = client.voice_client_in(message.server)
+                    players[message.server.id].stop()
+                    player = await voice.create_ytdl_player(link, before_options=" -reconnect 1 -reconnect_streamed 1"
+                                                                                " -reconnect_delay_max 5")
+                    players[message.server.id] = player
+                    player.start()
+                except Exception as error2:
+                    await client.send_message(message.channel, "Error \n\n ```{erro}```".format(erro=error2))
+                finally:
+                    pass
         except Exception as error2:
             await client.send_message(message.channel, "Error \n\n ```{erro}```".format(erro=error2))
         finally:
@@ -168,4 +189,4 @@ async def uptime():
 
 
 client.loop.create_task(uptime())
-client.run('-><-')
+client.run("-><-")
