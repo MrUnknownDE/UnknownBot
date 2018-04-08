@@ -1,0 +1,42 @@
+## Vorlagen für Embed-Visualizer ##
+
+>> ?info <<
+{
+  "embed": {
+    "title": "Kurz zusammengefasst",
+    "url": "https://mrunknownde.de",
+    "color": 8913151,
+    "description": "Alles auf einen Blick... ",
+    "footer": {
+      "icon_url": "https://slides.steveliedtke.de/git2/images/Git-Icon-small.png",
+      "text": "Alpha 0.0.1v"
+    },
+    "author": {
+      "name": "UnknownBot Informationen",
+      "url": "https://mrunknownde.de",
+      "icon_url": "https://dl.mrunknownde.de/Bilder/Rem_re_zero_render_by_ozkberg-daf287u.png"
+    },
+    "fields": [
+      {
+        "name": "Benutzer",
+        "value": "{0}",
+        "inline": true
+      },
+      {
+        "name": "Servers",
+        "value": "{0}",
+        "inline": true
+      },
+      {
+        "name": "Letztes Update",
+        "value": "14.03.2018 - 19:57 Uhr",
+        "inline": true
+      },
+      {
+        "name": "Onlinezeit",
+        "value":"{0}",
+        "inline": true
+      }
+    ]
+  }
+}

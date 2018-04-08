@@ -1,0 +1,7 @@
+discord.py
+discord.py[voice]
+pip
+youtube_dl
+PyNaCl
+colorlog
+cffi --only-binary all; sys_platform == 'win32'
