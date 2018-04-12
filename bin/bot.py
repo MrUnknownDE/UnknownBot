@@ -1,17 +1,18 @@
 import discord
 import asyncio
-
+import configparser
 
 client = discord.Client()
-ownerid = ("155076323612688384")
 
+config = configparser.ConfigParser()
+config.read("config.ini")
 
-##Uptime Variablen##
+ownerid = (config['DISCORD']['owner'])
+
+##Variablen##
 minutes = 0
 hours = 0
 days = 0
-
-## Music Bot
 
 players = {}
 
@@ -38,13 +39,14 @@ async def on_message(message):
     if message.content.lower().startswith("?info"):
         server = client.servers
         embed = discord.Embed(title="Support-Discord: mrunknownde.de", colour=discord.Colour(0x8800ff),
-                              url="https://mrunknownde.de", description="\nAll in One Informationen")
+                              url="https://mrunknownde.de", description="\n\n\nIrgendwelche Informationen")
+        embed.set_thumbnail(url="https://dl.mrunknownde.de/4KbNR")
         embed.set_author(name="UnknownBot Informationen", url="https://mrunknownde.de",
-                         icon_url="https://dl.mrunknownde.de/Bilder/Rem_re_zero_render_by_ozkberg-daf287u.png")
-        embed.set_footer(text="Alpha 0.0.1v", icon_url="https://slides.steveliedtke.de/git2/images/Git-Icon-small.png")
+                         icon_url="https://dl.mrunknownde.de/4KbNR")
+        embed.set_footer(text="{0}".format(config['VERSION']['version']), icon_url="https://slides.steveliedtke.de/git2/images/Git-Icon-small.png")
         embed.add_field(name="Benutzer", value="{0}", inline=True)
         embed.add_field(name="Servers", value="{0}".format(server), inline=True)
-        embed.add_field(name="Letztes Update", value="08.04.2018 - 19:55 Uhr", inline=True)
+        embed.add_field(name="Letztes Update", value="12.04.2018 - 22:55 Uhr", inline=True)
         embed.add_field(name="Onlinezeit", value="{0} Tag(e) {1} Stunde(n) {2} Minute(n)".format(days, hours, minutes), inline=True)
         embed.add_field(name="Discord.py", value="{0}", inline=True)
 
@@ -55,16 +57,45 @@ async def on_message(message):
             user = message.author
             usercreateat = str(user.created_at).split(".", 1)[0]
             userjoinat = str(user.joined_at).split(".", 1)[0]
-            userstatus = user.get_user_info()
+            userstatus = user.game
+            usericon = user.icon_url
 
             userembed = discord.Embed(colour=discord.Colour(0x8800ff))
             userembed.set_author(name="{0} #{1} Account Informationen".format(user.name, user.discriminator),
                              icon_url="https://dl.mrunknownde.de/Bilder/Rem_re_zero_render_by_ozkberg-daf287u.png")
+            userembed.set_footer(text="{0}".format(config['VERSION']['version']),
+                             icon_url="https://slides.steveliedtke.de/git2/images/Git-Icon-small.png")
             userembed.add_field(name="Account Erstellt", value="{0}".format(usercreateat), inline=True)
             userembed.add_field(name="Server beigetreten", value="{0}".format(userjoinat), inline=False)
             userembed.add_field(name="Status", value="{0}".format(userstatus), inline=False)
 
+            await client.send_message(message.channel, "{0}".format(usericon))
             await client.send_message(message.channel, embed=userembed)
+
+        except IndexError as error:
+            await client.send_message(message.channel, "Fehler beim Verarbeiten \n\n ```{error}```\n Diesen Fehler dem Support melden.".format(error=error))
+        except Exception as error:
+            await client.send_message(message.channel, "Fehler beim Verarbeiten \n\n ```{error}```\n Diesen Fehler dem Support melden.".format(error=error))
+        finally:
+            pass
+    if message.content.lower().startswith("?server"):
+        try:
+            servers = message.server
+            serverrcreateat = str(servers.created_at).split(".", 1)[0]
+            serverowner = servers.owner
+            servericon = servers.icon
+            serverid = servers.id
+
+            userembed = discord.Embed(colour=discord.Colour(0x8800ff))
+            userembed.set_author(name="{0} - Informationen".format(servers.name), icon_url="https://cdn.discordapp.com/icons/{0}/{1}.jpg".format(serverid, servericon))
+            userembed.set_footer(text="{0}".format(config['VERSION']['version']), icon_url="https://slides.steveliedtke.de/git2/images/Git-Icon-small.png")
+            userembed.set_thumbnail(url="https://cdn.discordapp.com/icons/{0}/{1}.jpg".format(serverid, servericon))
+            userembed.add_field(name="Server Erstellt", value="{0}".format(serverrcreateat), inline=True)
+            userembed.add_field(name="Server Owner", value="{0}".format(serverowner), inline=False)
+            userembed.add_field(name="Mitglieder", value="-Buggy-")
+
+            await client.send_message(message.channel, embed=userembed)
+
         except IndexError as error:
             await client.send_message(message.channel, "Fehler beim Verarbeiten \n\n ```{error}```\n Diesen Fehler dem Support melden.".format(error=error))
         except Exception as error:
@@ -189,4 +220,4 @@ async def uptime():
 
 
 client.loop.create_task(uptime())
-client.run("-><-")
+client.run(config['DISCORD']['bot-token'])
