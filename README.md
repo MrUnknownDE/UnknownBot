@@ -6,13 +6,13 @@ Ich selber bin in der Sprache "Python" ein reiner Anfänger also nehment mir es 
 Trotzdem viel Spaß...
 
 # Commands
-**?help** - Übersicht der Commands
-**?uptime** - wie lange ist der Bot schon online
-**?bot** - Kleine Rand information vom Bot.
+**?help** - Übersicht der Commands<br>
+**?uptime** - wie lange ist der Bot schon online<br>
+**?bot** - Kleine Rand information vom Bot.<br>
 
-Music-CMDs
-**?play [URL]** - Spielt aktuellen Link ab
-**?queue** - Zeigt aktuelles Lied an
+Music-CMDs<br>
+**?play [URL]** - Spielt aktuellen Link ab<br>
+**?queue** - Zeigt aktuelles Lied an<br>
 
 
 # Istallation
