@@ -21,7 +21,8 @@ async def on_ready():
     print ('')
     print ('UnknownBot ist gestartet')
     print ('')
-    await client.change_presence(game=discord.Game(name="on exoticzone.de"))
+    print ('?help - Für mehr Informationen')
+    await client.change_presence(game=discord.Game(name="booting ..."))
 
 @client.event
 async def on_message(message):
