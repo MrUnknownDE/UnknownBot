@@ -1,0 +1,31 @@
+{
+  "name": "unknownbot",
+  "version": "1.0.0",
+  "description": "a Discord Bot",
+  "main": "run.js",
+  "scripts": {
+    "test": "run.js -debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrUnknownDE/UnknownBot.git"
+  },
+  "keywords": [
+    "discord",
+    "music",
+    "bot"
+  ],
+  "author": "Johannes Krüger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrUnknownDE/UnknownBot/issues"
+  },
+  "homepage": "https://github.com/MrUnknownDE/UnknownBot#readme",
+  "dependencies": {
+    "@discordjs/opus": "^0.4.0",
+    "discord.js": "^12.5.1",
+    "download": "^8.0.0",
+    "https": "^1.0.0",
+    "node-pre-gyp": "^0.17.0"
+  }
+}
